@@ -8,9 +8,8 @@ import { THEME } from './src/theme';
 import { Loading } from './src/components/Loading';
 
 import { CartContextProvider } from './src/contexts/CartContext';
-
+//EQL - Adicionado para a aula
 import { OneSignal } from 'react-native-onesignal';
-
 OneSignal.initialize("eb829ae6-b7e7-4f4f-b9c7-4126867ca7fe");
 
 export default function App() {
