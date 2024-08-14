@@ -6,6 +6,7 @@
 
     export function tagUserEmailRemove(email: string) {
         OneSignal.User.removeTag("user_email");
+        OneSignal.User
     }
 
     export function tagUserInfoCreate() {
