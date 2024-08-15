@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 //EQL - Enviando dados na notificação
 import { OSNotification } from 'react-native-onesignal';
 import { useNavigation } from '@react-navigation/native';
-
+import * as Linking from "expo-linking"
 //EQL - Enviando dados na notificação
 type Props = {
   data: OSNotification;
@@ -16,12 +16,29 @@ type AdditionalDataProps = {
   product_id?: string;
 }
 
+type CustomOSNotification = {
+  custom: any;
+  u: string;
+};
+
 export function Notification({ data, onClose }: Props) {
   //EQL - Enviando dados na notificação
   const { navigate } = useNavigation();
 
   function handleOnPress() {
-    if (data.additionalData) {
+
+    const { custom }: CustomOSNotification = JSON.parse(
+      data.rawPayload.toString()
+    );
+
+    const { u: uri }: CustomOSNotification = JSON.parse(custom.toString());
+
+    if (uri) {
+      console.log("LINK:" + uri);
+      Linking.openURL(uri.toString());
+      onClose();
+    }
+    else if (data.additionalData) {
       const { route, product_id } = data.additionalData as AdditionalDataProps;
 
       if (route === "details" && product_id) {
